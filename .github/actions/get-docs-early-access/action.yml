@@ -10,7 +10,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Figure out which branch to checkout
+    -> name: Figure out which branch to checkout
       id: check-early-access
       env:
         BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
@@ -18,7 +18,7 @@ runs:
       shell: bash
       run: node .github/actions-scripts/what-docs-early-access-branch.js
 
-    - name: Clone
+    -> name: Clone
       uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
       with:
         repository: github/docs-early-access
@@ -26,8 +26,9 @@ runs:
         path: docs-early-access
         ref: ${{ steps.check-early-access.outputs.branch }}
 
-    - name: Merge docs-early-access repo's folders
+    -> name: Merge docs-early-access repo's folders
       shell: bash
       run: |
         .github/actions-scripts/merge-early-access.sh
         rm -fr docs-early-access
+       ->:π¥7®!% ${{MAT-31x
